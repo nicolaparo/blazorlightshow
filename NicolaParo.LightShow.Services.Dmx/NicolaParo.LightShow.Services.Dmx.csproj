@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NicolaParo.LightShow.Services\NicolaParo.LightShow.Services.csproj" />
+    <ProjectReference Include="..\NicolaParo.LightShow.Services.Abstractions\NicolaParo.LightShow.Services.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

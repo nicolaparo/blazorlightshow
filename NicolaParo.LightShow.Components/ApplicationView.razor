@@ -1,0 +1,68 @@
+﻿@using NicolaParo.LightShow.Services.Abstractions;
+
+@inject IDmxAdapter dmxAdapter;
+
+<style>
+
+    html {
+        overflow: hidden;
+    }
+
+    .blazor-conf-header {
+        height: 200px;
+        background: url(blazor-conf-logo.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .par-led-color-picker {
+        width: 100px;
+        height: 100px;
+        padding: 0;
+        border: 1px solid black;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+</style>
+
+<div class="blazor-conf-header my-4">
+</div>
+
+<div class="row" style="margin-top: 100px;">
+    <div class="col text-center">
+        <div>
+            <input type="color" class="par-led-color-picker btn btn-light" @oninput="(args) => OnColorPicked(0, args.Value.ToString())" />
+
+        </div>
+    </div>
+    <div class="col text-center">
+        <div>
+            <input type="color" class="par-led-color-picker btn btn-light" @oninput="(args) => OnColorPicked(1, args.Value.ToString())" />
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    private void OnColorPicked(int projectorIndex, string htmlColor)
+    {
+        var bytes = Convert.FromHexString(htmlColor[1..]);
+
+        static float sqr(float x) => x * x;
+
+        if (bytes is not [var red, var green, var blue])
+            return;
+
+        red = (byte)(255 * sqr(red / 255f));
+        green = (byte)(128 * sqr(green / 255f));
+        blue = (byte)(64 * sqr(blue / 255f));
+
+        var startingChannel = projectorIndex * 3;
+
+        dmxAdapter.SetChannels(startingChannel, new[] { red, green, blue });
+    }
+
+}

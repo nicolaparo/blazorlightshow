@@ -1,8 +1,8 @@
-﻿using System.Runtime.InteropServices;
+﻿using NicolaParo.LightShow.Services.Abstractions;
+using System.Runtime.InteropServices;
 
 namespace NicolaParo.LightShow.Services.Dmx
 {
-
     public class DmxAdapter : IDmxAdapter
     {
         private static class UDmxInterop
@@ -55,5 +55,4 @@ namespace NicolaParo.LightShow.Services.Dmx
                 throw new IndexOutOfRangeException();
         }
     }
-
 }
